@@ -1,0 +1,53 @@
+//---------------------------------------------------
+// tupi.ci
+//---------------------------------------------------
+mainmodule tupi {
+   include "so_geometry.hpp";
+   include "so_matter.hpp";
+   include "so_xrtube.hpp";
+
+
+   initnode void registerDataOp(void);
+   initnode void registerDataOp2(void);
+
+   readonly CProxy_Main       Proxy_Main;
+
+   readonly CProxy_Node       Proxy_Node;
+
+   readonly CProxy_Simulation Proxy_Simulation;
+   readonly CProxy_GDetector  Proxy_GDetector;
+
+   mainchare Main {
+      entry      Main(CkArgMsg *m);
+      entry void Reduction(void);
+      entry void Reduction2(void);
+      entry void EnlapsedTime(int pe, float tm);
+   };
+
+   nodegroup Node {
+      entry      Node(int n, unsigned long init_key[n], Media &mt, Models &md);
+      entry      Node(int n, unsigned long init_key[n], XRTube &tb, Models &md);
+      entry      Node(Models &md);
+      entry void Reduction(CkReductionMsg* m);
+      entry void Model(Models &md);
+   };
+
+   group Simulation {
+      entry      Simulation(double val);
+      entry      Simulation(int n, unsigned long init_key[n], double val, Media mt);
+      entry      Simulation(int n, unsigned long init_key[n], double val, int nd, float fct[nd], XRTube xrt, Media mt);
+      entry void Factor(double val, int nd, float factor[nd]);
+      entry void Run(int lap);
+   };
+
+   group GDetector {
+      entry      GDetector(int val1, double val2, int nd, char dir[nd], int nf, char file[nf], Models md);
+      entry      GDetector(int val1, int val2, int nd, char dir[nd], int nf, char file[nf]);
+      entry      GDetector(int n, unsigned long init_key[n], 
+                           int val1, int val2, double grains, double area, double thick,
+                           double lx, double ly, int nd, char dir[nd], int nf, char file[nf], Media mt, Models md);
+      entry void Model(Models &md);
+      entry void Contribution(void);
+      entry void Reduction(CkReductionMsg* m);
+   };
+};
