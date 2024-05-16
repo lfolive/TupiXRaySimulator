@@ -1,5 +1,3 @@
-# Tupy -- X-Ray Simulator Project
+# Tupy - Projeto de simulador para aplicações com raio X
 
-A natively parallel and distributed Monte Carlo simulator for x-ray applications using Charm++ language.
-
-
+Um simulador Monte Carlo nativamente parelelo e distribuído para aplicações com raios X usando linguagem Charm++.
